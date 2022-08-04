@@ -12,16 +12,24 @@ const user_ids = [618,677,582,448,744,90];
 744	mayara.lima
 90	adson.borges
 */
+var pagina = $(location).attr('pathname').split("/")[1];
+var chamado = $(location).attr('pathname').split("/")[2];
 
 const interval = setInterval(()=>{
+	// Fica monitorando se a div de observadores já está carregada
 	const lista = document.querySelector("#watchers");
 	if(lista){
 		const meuBotao = document.querySelector("#btn_observer");
 		if(meuBotao){
 
 		}else{
+			// Aqui vou verificar se todos os observadores pre-carregados já constam na lista
+			
+			//Ainda tenho que fazer essa parte
+
 			console.log(lista);
 			
+			// Crio o botão e adiciono na lateral da página
 			const button = document.createElement("button");
 			button.setAttribute("id","btn_observer");
 			button.innerHTML = "Adicionar Observadores Predefinidos";
@@ -29,21 +37,20 @@ const interval = setInterval(()=>{
 			lista.prepend(button);
 	
 			button.addEventListener("click", ()=>{
-				var pagina = $(location).attr('pathname').split("/")[1];
-				var chamado = $(location).attr('pathname').split("/")[2];
 				console.log(chamado);
-	
+				
+				//Se eu estiver na página de chamados
 				if(pagina == "issues"){
-					console.log('ok');
 					
 					console.log(chamado);
 					function addObs(ll){
 						let it = 0;
+						// Para cada usuário na lista de usuários
 						ll.forEach(element => {
 							args = {
 								user_id: element
 							}
-							$.ajax({
+							$.ajax({ //Adiciono esse observador em uma chamada ajax
 								url: 'https://redmine-cds.eb.mil.br/issues/'+chamado+'/watchers.json',
 								type: 'post',
 								username: apikey,
@@ -52,10 +59,13 @@ const interval = setInterval(()=>{
 								dataType: 'json',
 								contentType: 'application/json',
 								success: function (retorno) {
+									// Se eu já tiver adicionado todos os observadores
 									if(user_ids.length == ++it){
+										// Altero o css do Botão
 										$('#btn_observer').html("Observadores foram adicionados!").css("background-color","green");
 										// https://redmine-cds.eb.mil.br/issues/33325.json?include=watchers
 										$.ajax({
+											// para atualizar a lista de observadores sem precisar fazer reload na página, vou consulta-los
 											url: 'https://redmine-cds.eb.mil.br/issues/'+chamado+'.json?include=watchers',
 											type: 'get',
 											username: apikey,
@@ -104,9 +114,13 @@ const interval = setInterval(()=>{
 												});
 												if(spys){
 													console.log(menu);
-													$("ul.watchers").html(menu);
+													$("ul.watchers").remove();
+													$("#watchers").append(menu);
 													
+												}else{
+													$("#watchers").append(menu);
 												}
+												$("#watchers > h3").text("Observadores ("+espias.length +")");
 											}
 										});
 										// window.location.reload(true);
@@ -127,4 +141,4 @@ const interval = setInterval(()=>{
 
 
 	}
-},200)
+},200);

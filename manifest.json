@@ -1,6 +1,6 @@
 {
 	"name":"Observadores",
-	"manifest_version":2,
+	"manifest_version":3,
 	"version":"1.0",
 	"description":"insere automaticamente observadores no chamado aberto",
 	"content_scripts": [
@@ -16,7 +16,13 @@
 				"estilo.css"
 			]
 		}
-	]
+	],
+	"permissions": [
+        "storage"
+    ],
+	"action": {
+		"default_popup": "index.html"
+	}
 	
 }
 
