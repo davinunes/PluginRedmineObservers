@@ -18,7 +18,17 @@ const interval = setInterval(()=>{
 
 			if(pagina == "issues"){
 				console.log('ok');
-				var user_ids = [448,582,677,618,33,92,744];
+				var user_ids = [618,677,582,448,744,90];
+				/* 
+				448	alan.mazuco
+				582	paulo.camargo
+				677	luciene.demenicis
+				618	davinunes.franca
+				33	borges.andre
+				92	natalianascimento.rodrigues
+				744	mayara.lima
+				90	adson.borges
+				*/
 				
 				console.log(chamado);
 				function addObs(ll){
