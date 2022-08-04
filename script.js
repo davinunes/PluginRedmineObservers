@@ -1,4 +1,18 @@
 console.log('Extensão do Davi carregada');
+const apikey= "bf803a4a195bc436895059127deab21a3e5cb8a8";
+const user_ids = [618,677,582,448,744,90];
+
+/* 
+448	alan.mazuco
+582	paulo.camargo
+677	luciene.demenicis
+618	davinunes.franca
+33	borges.andre
+92	natalianascimento.rodrigues
+744	mayara.lima
+90	adson.borges
+*/
+
 const interval = setInterval(()=>{
 	const lista = document.querySelector("#watchers");
 	if(lista){
@@ -21,17 +35,6 @@ const interval = setInterval(()=>{
 	
 				if(pagina == "issues"){
 					console.log('ok');
-					var user_ids = [618,677,582,448,744,90];
-					/* 
-					448	alan.mazuco
-					582	paulo.camargo
-					677	luciene.demenicis
-					618	davinunes.franca
-					33	borges.andre
-					92	natalianascimento.rodrigues
-					744	mayara.lima
-					90	adson.borges
-					*/
 					
 					console.log(chamado);
 					function addObs(ll){
@@ -43,7 +46,7 @@ const interval = setInterval(()=>{
 							$.ajax({
 								url: 'https://redmine-cds.eb.mil.br/issues/'+chamado+'/watchers.json',
 								type: 'post',
-								username: 'bf803a4a195bc436895059127deab21a3e5cb8a8',
+								username: apikey,
 								password: 'password',
 								crossDomain: true,
 								dataType: 'json',
@@ -55,7 +58,7 @@ const interval = setInterval(()=>{
 										$.ajax({
 											url: 'https://redmine-cds.eb.mil.br/issues/'+chamado+'.json?include=watchers',
 											type: 'get',
-											username: 'bf803a4a195bc436895059127deab21a3e5cb8a8',
+											username: apikey,
 											password: 'password',
 											crossDomain: true,
 											dataType: 'json',
