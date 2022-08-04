@@ -6,7 +6,8 @@ const interval = setInterval(()=>{
 		clearInterval(interval);
 		
 		const button = document.createElement("button");
-		button.innerHTML = "Observadores Personalizados";
+		button.setAttribute("id","btn_observer");
+		button.innerHTML = "Adicionar Observadores Predefinidos";
 		button.classList.add("obs");
 		lista.prepend(button);
 
@@ -17,18 +18,35 @@ const interval = setInterval(()=>{
 
 			if(pagina == "issues"){
 				console.log('ok');
-				var args = {
-					object_type: "issue",
-					object_id: chamado,
-					watcher: {
-						user_ids:[448,582,677,618,33,92,744]
-					}
-				}
+				var user_ids = [448,582,677,618,33,92,744];
+				
 				console.log(chamado);
-				$.post('https://redmine-cds.eb.mil.br/watchers', args, function(retorno) {
-					window.location.reload(true);
-					console.log(retorno);
-				});
+				function addObs(ll){
+					let it = 0;
+					ll.forEach(element => {
+						args = {
+							user_id: element
+						}
+						$.ajax({
+							url: 'https://redmine-cds.eb.mil.br/issues/'+chamado+'/watchers.json',
+							type: 'post',
+							username: 'bf803a4a195bc436895059127deab21a3e5cb8a8',
+							password: 'password',
+							crossDomain: true,
+							dataType: 'json',
+							contentType: 'application/json',
+							success: function (retorno) {
+								if(user_ids.length == ++it){
+									$('#btn_observer').html("Pronto! A página será atualizada em instantes!").css("background-color","green");
+									window.location.reload(true);
+								}
+							},
+							data: JSON.stringify(args)
+						});
+					});
+					console.log(user_ids.length);
+				}
+				addObs(user_ids);
 			}else{
 				console.log('Não dá pra fazer isso nessa página');
 			}
