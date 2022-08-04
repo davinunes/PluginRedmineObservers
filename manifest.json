@@ -1,0 +1,21 @@
+{
+	"name":"Observadores",
+	"manifest_version":3,
+	"version":"1.0",
+	"description":"insere automaticamente observadores no chamado aberto",
+	"content_scripts": [
+		{
+			"matches": [
+				"https://redmine-cds.eb.mil.br/issues/*"
+			],
+			"js": [
+				"jquery-3.6.0.min.js",
+				"script.js"
+			],
+			"css":[
+				"estilo.css"
+			]
+		}
+	]
+	
+}
