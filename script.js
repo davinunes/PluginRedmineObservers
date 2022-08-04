@@ -62,11 +62,46 @@ const interval = setInterval(()=>{
 											contentType: 'application/json',
 											success: function (r) {
 												let espias = r.issue.watchers;
-												console.log(espias);
+												// console.log(espias);
 												const spys = document.querySelector("ul.watchers");
-												if(spys){
-													console.log(spys);
+												var menu = $("<ul>",{
+													class:"watchers"
+												});
+												espias.forEach(e=>{
+													// console.log(e);
+													// <a class="user active" href="/users/618">davinunes.franca</a>
 
+													let li = $("<li>",{
+														class:"user-"+e.id
+													});
+													// <li class="user-90">davi</li>
+													let aa = $("<a>",{
+														text:e.name,
+														class:"user active",
+														href:"/users/"+e.id
+													});
+													//<a class=""   href="33325618"></a>
+													let at = $("<a>",{
+														text:"Excluir",
+														class:"delete icon-only icon-del",
+														href:"/issues/"+chamado+"/watchers/"+e.id,
+														title:"Excluir",
+														rel:"nofollow",
+														"data-method":"delete",
+														"data-remote":"true"
+													});
+													
+													li.append(aa);
+													li.append(at);
+													menu.append(li);
+
+													//<a class=""   rel="nofollow" data-method="delete" href="/issues/33325/watchers/582"></a>
+													
+												});
+												if(spys){
+													console.log(menu);
+													$("ul.watchers").html(menu);
+													
 												}
 											}
 										});
