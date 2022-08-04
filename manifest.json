@@ -1,6 +1,6 @@
 {
 	"name":"Observadores",
-	"manifest_version":3,
+	"manifest_version":2,
 	"version":"1.0",
 	"description":"insere automaticamente observadores no chamado aberto",
 	"content_scripts": [
@@ -19,3 +19,7 @@
 	]
 	
 }
+
+/* 
+Para que as nossas extensões funcionem corretamente no Firefox é preciso fazer uma pequena configuração. Na barra de endereços do Firefox, digite “about:config” sem as aspas, e aperte “Enter”. Procure por “xpinstall.signatures.required, e dê um clique duplo na palavra “true” mudando para “false”
+ */
