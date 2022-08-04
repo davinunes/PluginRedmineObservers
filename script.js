@@ -50,7 +50,7 @@ const interval = setInterval(()=>{
 								contentType: 'application/json',
 								success: function (retorno) {
 									if(user_ids.length == ++it){
-										$('#btn_observer').html("Pronto! A página será atualizada em instantes!").css("background-color","green");
+										$('#btn_observer').html("Observadores foram adicionados!").css("background-color","green");
 										// https://redmine-cds.eb.mil.br/issues/33325.json?include=watchers
 										$.ajax({
 											url: 'https://redmine-cds.eb.mil.br/issues/'+chamado+'.json?include=watchers',
@@ -90,7 +90,8 @@ const interval = setInterval(()=>{
 														"data-method":"delete",
 														"data-remote":"true"
 													});
-													
+													let img='<img class="gravatar" srcset="https://www.gravatar.com/avatar/35bb79e97a77d2b40809bc2843a8e939?rating=PG&amp;size=32&amp;default= 2x" src="https://www.gravatar.com/avatar/35bb79e97a77d2b40809bc2843a8e939?rating=PG&amp;size=16&amp;default=">';
+													li.append(img);
 													li.append(aa);
 													li.append(at);
 													menu.append(li);
