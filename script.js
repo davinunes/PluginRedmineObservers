@@ -14,6 +14,7 @@ const user_ids = [618,677,582,448,744,90];
 */
 var pagina = $(location).attr('pathname').split("/")[1];
 var chamado = $(location).attr('pathname').split("/")[2];
+var tudoCerto = true;
 
 const interval = setInterval(()=>{
 	// Fica monitorando se a div de observadores já está carregada
@@ -26,8 +27,35 @@ const interval = setInterval(()=>{
 			// Aqui vou verificar se todos os observadores pre-carregados já constam na lista
 			
 			//Ainda tenho que fazer essa parte
+			$.ajax({
+				// para atualizar a lista de observadores sem precisar fazer reload na página, vou consulta-los
+				url: 'https://redmine-cds.eb.mil.br/issues/'+chamado+'.json?include=watchers',
+				type: 'get',
+				username: apikey,
+				password: 'password',
+				crossDomain: true,
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (r) {
+					let espias = r.issue.watchers;
+					user_ids.forEach(esp=>{
+						let teste = espias.find(element => element.id == esp);
+						if(typeof teste === 'undefined'){
+							console.log("Falta o observador: "+esp);
+							tudoCerto = false;
 
-			console.log(lista);
+						}
+
+					});
+					if(tudoCerto){
+						nadaprafazer();
+					}else{
+						algoprafazer();
+					}
+				}
+
+			});
+
 			
 			// Crio o botão e adiciono na lateral da página
 			const button = document.createElement("button");
@@ -62,7 +90,7 @@ const interval = setInterval(()=>{
 									// Se eu já tiver adicionado todos os observadores
 									if(user_ids.length == ++it){
 										// Altero o css do Botão
-										$('#btn_observer').html("Observadores foram adicionados!").css("background-color","green");
+										nadaprafazer();
 										// https://redmine-cds.eb.mil.br/issues/33325.json?include=watchers
 										$.ajax({
 											// para atualizar a lista de observadores sem precisar fazer reload na página, vou consulta-los
@@ -142,3 +170,11 @@ const interval = setInterval(()=>{
 
 	}
 },200);
+
+function nadaprafazer (){
+	$('#btn_observer').html("Todos os observadores padrão já estão na lista!").css("background-color","green");
+}
+
+function algoprafazer (){
+	$('#btn_observer').html("Adicionar Observadores Predefinidos").css("background-color","orange");
+}
