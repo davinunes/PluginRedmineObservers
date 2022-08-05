@@ -21,7 +21,8 @@
         "storage"
     ],
 	"action": {
-		"default_popup": "index.html"
+		"default_popup": "index.html",
+		"default_icon":"community.png"
 	}
 	
 }

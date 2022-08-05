@@ -2,6 +2,7 @@ console.log('Extensão do Davi carregada');
 const apikey= "bf803a4a195bc436895059127deab21a3e5cb8a8";
 const user_ids = [618,677,582,448,744,90];
 
+
 /* 
 448	alan.mazuco
 582	paulo.camargo
@@ -55,6 +56,45 @@ const interval = setInterval(()=>{
 				}
 
 			});
+			//Cria um botão para um input para inserir a API.
+			var chave = getkey();
+			console.log(chave);
+
+			const fieldset = document.createElement("div");
+			fieldset.setAttribute("id","field_set");
+
+			const config = document.createElement("button");
+			config.setAttribute("id","btn-config");
+			config.innerHTML = "Configurar extensão";
+
+			fieldset.appendChild(config);
+
+			lista.prepend(fieldset);
+
+			config.addEventListener("click",()=>{
+				let div = $("#field_set");
+
+				if(typeof chave == 'undefined'){
+					console.log("Não tem chave definida");
+
+					let inputkey = $("<input>",{
+						id:"input_key"
+					});
+
+					const ipk = document.querySelector("#input_key");
+					
+					if(!ipk){
+						div.append(inputkey);
+					}
+
+					
+					
+				}else{
+					console.log("Chave: "+chave);
+				}
+
+			});
+
 
 			
 			// Crio o botão e adiciono na lateral da página
@@ -177,4 +217,28 @@ function nadaprafazer (){
 
 function algoprafazer (){
 	$('#btn_observer').html("Adicionar Observadores Predefinidos").css("background-color","orange");
+}
+
+function getkey(){
+    chrome.storage.sync.get("api_key",key=>{
+		var resultado = key["api_key"];
+		console.log(resultado);
+        return resultado;
+    } );
+
+}
+
+$(document).on("keyup",e=>{
+	if(e.key === "Enter"){
+		let hash = $("#input_key").val();
+		console.log("Chave armazenada: "+hash);
+		setkey(hash);
+	}
+});
+
+function setkey(termo){
+    chrome.storage.sync.set({"api_key": termo},key=>{
+        console.log("Chave armazenada!");
+    } );
+
 }
