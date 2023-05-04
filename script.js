@@ -1,6 +1,6 @@
 console.log('Extensão do Davi carregada');
 const apikey= "bf803a4a195bc436895059127deab21a3e5cb8a8";
-const user_ids = [618,677,582,448,744,90];
+const user_ids = [618,677,582,448,744,90,237];
 
 
 /* 
@@ -12,6 +12,7 @@ const user_ids = [618,677,582,448,744,90];
 92	natalianascimento.rodrigues
 744	mayara.lima
 90	adson.borges
+237 alex.oliveira
 */
 var pagina = $(location).attr('pathname').split("/")[1];
 var chamado = $(location).attr('pathname').split("/")[2];
